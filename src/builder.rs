@@ -831,6 +831,15 @@ impl ContainerOptionsBuilder {
         self
     }
 
+    pub fn user<'a>(&mut self, user: &str, group: impl Into<Option<&'a str>>) -> &mut Self {
+        let value = match group.into() {
+            Some(group) => format!("{}:{}", user, group),
+            None => user.to_string(),
+        };
+        self.params.insert("User", json!(value));
+        self
+    }
+
     pub fn cmd(
         &mut self,
         cmds: Vec<&str>,
