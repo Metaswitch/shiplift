@@ -643,10 +643,9 @@ impl ContainerOptionsBuilder {
     }
 
     /// enable all exposed ports on the container to be mapped to random, available, ports on the host
-    pub fn publish_all_ports(
-        &mut self,
-    ) -> &mut Self {
-        self.params.insert("HostConfig.PublishAllPorts", json!(true));
+    pub fn publish_all_ports(&mut self) -> &mut Self {
+        self.params
+            .insert("HostConfig.PublishAllPorts", json!(true));
         self
     }
 
@@ -831,7 +830,11 @@ impl ContainerOptionsBuilder {
         self
     }
 
-    pub fn user<'a>(&mut self, user: &str, group: impl Into<Option<&'a str>>) -> &mut Self {
+    pub fn user<'a>(
+        &mut self,
+        user: &str,
+        group: impl Into<Option<&'a str>>,
+    ) -> &mut Self {
         let value = match group.into() {
             Some(group) => format!("{}:{}", user, group),
             None => user.to_string(),
