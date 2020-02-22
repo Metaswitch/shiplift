@@ -950,14 +950,14 @@ impl ExecContainerOptions {
 
         for (k, v) in &self.params {
             body.insert(
-                k.to_string(),
+                (*k).to_string(),
                 serde_json::to_value(v).map_err(Error::SerdeJsonError)?,
             );
         }
 
         for (k, v) in &self.params_bool {
             body.insert(
-                k.to_string(),
+                (*k).to_string(),
                 serde_json::to_value(v).map_err(Error::SerdeJsonError)?,
             );
         }
